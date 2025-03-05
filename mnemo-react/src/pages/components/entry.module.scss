@@ -1,0 +1,54 @@
+.yearMarker {
+  margin: 10px 0;
+  font-size: 18px;
+}
+
+.mainContent {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.memoriesLink {
+  color: purple;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.memoryGrid {
+  display: flex;
+  gap: 10px;
+}
+
+.memoryCard {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  width: 200px;
+}
+
+.memoryImage {
+  width: 100%;
+  height: auto;
+}
+
+.memoryDetails {
+  padding: 10px;
+  text-align: center;
+}
+
+.memoryDate {
+  font-weight: bold;
+}
+
+.memoryLocation {
+  color: gray;
+  font-size: 14px;
+}

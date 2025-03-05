@@ -1,0 +1,16 @@
+{
+  "name": "mnemo-app",
+  "version": "1.0.0",
+  "description": "Hello World!",
+  "main": "main.js",
+  "author": "rphawks",
+  "devDependencies": {
+    "electron": "^34.0.2"
+  },
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "react-router-dom": "^7.1.5"
+  }
+}

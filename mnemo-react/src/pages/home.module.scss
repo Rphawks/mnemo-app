@@ -1,0 +1,54 @@
+.timelineContainer {
+  height: 100vh;
+}
+
+.sidebar {
+  width: 150px;
+  background: #eee;
+  padding: 20px;
+  overflow-y: auto;
+  max-height: 100vh;
+}
+
+.logobox {
+  display: flex;
+  gap: 0rem;
+  align-items: center;
+}
+
+.logo {
+  width: 2.5rem;
+  height: 2.5rem;
+  background-image: url("../assets/logo.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.brand {
+  font-size: 2rem;
+  font-weight: normal;
+  text-align: left;
+  font-weight: 600;
+  color: #6d326d;
+}
+
+.nav {
+  font-size: 2rem;
+  font-weight: normal;
+  text-align: left;
+  font-weight: 400;
+  color: #6d326d;
+}
+
+.navgroup {
+  display: flex;
+  gap: 2rem;
+}
+
+.topbox {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 2rem;
+  margin-top: 2rem;
+  margin-right: 2rem;
+}
