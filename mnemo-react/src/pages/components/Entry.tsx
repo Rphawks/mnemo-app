@@ -9,6 +9,8 @@ interface File {
 interface Props {
   file: File;
   image?: File | null;
+  onParsedDate: (path: string, utctime: string) => void;
+  isInitialParse: boolean;
 }
 
 const formatDate = (utcString: string): string => {
@@ -40,7 +42,12 @@ const parseSensorData = (data: string) => {
   return parsedData;
 };
 
-const Entry: React.FC<Props> = ({ file, image }) => {
+const Entry: React.FC<Props> = ({
+  file,
+  image,
+  onParsedDate,
+  isInitialParse,
+}) => {
   const [content, setContent] = useState<string>("");
 
   useEffect(() => {
@@ -84,12 +91,23 @@ const Entry: React.FC<Props> = ({ file, image }) => {
     }
   }, [content]);
 
+  useEffect(() => {
+    if (isInitialParse && utcTime) {
+      try {
+        onParsedDate(file.path, utcTime);
+      } catch (error) {
+        console.error("Failed to read file", file.path, error);
+      }
+    }
+  }, [utcTime, isInitialParse]);
+
   return (
-    <div className={styles.memoryCard}>
+    <div className={styles.memoryCard} data-file-path={file.path}>
       {imagePath && <img src={imagePath} className={styles.memoryImage} />}
       <div className={styles.memoryDetails}>
         <span className={styles.memoryDate}>{formatDate(utcTime)}</span>
-        <span className={styles.memoryLocation}>{gps}</span>
+        <br></br>
+        <span className={styles.memoryLocation}>{gps ?? "No Location"}</span>
       </div>
     </div>
 

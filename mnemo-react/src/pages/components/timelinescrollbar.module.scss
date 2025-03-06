@@ -1,0 +1,32 @@
+.scrollbar {
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  background-color: #f8f8f8;
+  border-left: 1px solid #ddd;
+  z-index: 1000;
+  padding: 8px 0;
+}
+
+.monthMarker {
+  text-align: center;
+  padding: 6px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #555;
+  background-color: #fff;
+  border-radius: 12px;
+  margin: 4px 0;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  user-select: none;
+}
+
+.monthMarker:hover {
+  background-color: #e0e0e0;
+}

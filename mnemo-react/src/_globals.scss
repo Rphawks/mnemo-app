@@ -8,3 +8,19 @@ body {
   padding: 0;
   background-color: #fdfffc;
 }
+
+button {
+  font-family: "Maven Pro", serif;
+  background-color: #6d326d;
+  color: white;
+  border: none;
+  font-size: 1.5rem;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  text-align: center;
+
+  &:hover {
+    background-color: #7a3f89;
+  }
+}
