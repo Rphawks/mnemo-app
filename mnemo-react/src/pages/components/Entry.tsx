@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./entry.module.scss";
+import Popup from "./Popup";
 
 interface File {
   name: string;
@@ -61,7 +62,7 @@ const Entry: React.FC<Props> = ({
   const [c2h5oh, setC2h5oh] = useState<number | null>(null);
   const [voc, setVoc] = useState<number | null>(null);
   const [co, setCo] = useState<number | null>(null);
-  const [gps, setGps] = useState<number | null>(null);
+  const [gps, setGps] = useState<string | null>(null);
   const [imagePath, setImagePath] = useState<string | null>(null);
 
   useEffect(() => {
@@ -87,7 +88,7 @@ const Entry: React.FC<Props> = ({
       setC2h5oh(parsedData["C2H5OH"] ? parseFloat(parsedData["C2H5OH"]) : null);
       setVoc(parsedData["VOC"] ? parseFloat(parsedData["VOC"]) : null);
       setCo(parsedData["CO"] ? parseFloat(parsedData["CO"]) : null);
-      setGps(parsedData["GPS"] ? parseFloat(parsedData["GPS"]) : null);
+      setGps(parsedData["GPS"] || "No Location");
     }
   }, [content]);
 
@@ -101,20 +102,44 @@ const Entry: React.FC<Props> = ({
     }
   }, [utcTime, isInitialParse]);
 
-  return (
-    <div className={styles.memoryCard} data-file-path={file.path}>
-      {imagePath && <img src={imagePath} className={styles.memoryImage} />}
-      <div className={styles.memoryDetails}>
-        <span className={styles.memoryDate}>{formatDate(utcTime)}</span>
-        <br></br>
-        <span className={styles.memoryLocation}>{gps ?? "No Location"}</span>
-      </div>
-    </div>
+  interface PopupData {
+    imagePath: string | null;
+    utcTime: string;
+    gps: string | null;
+    filePath: string;
+  }
 
-    // <div style={{ border: "1px solid #ddd", margin: "10px", padding: "10px" }}>
-    //   <h3>{file.name}</h3>
-    //   <pre>{content}</pre>
-    // </div>
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [popupData, setPopupData] = useState<PopupData | null>(null);
+
+  const handleClick = () => {
+    setPopupData({
+      imagePath,
+      utcTime,
+      gps,
+      filePath: file.path,
+    });
+    setIsPopupVisible(true);
+  };
+
+  return (
+    <div>
+      <div
+        className={styles.memoryCard}
+        data-file-path={file.path.split(/[/\\]/).pop()}
+        onClick={handleClick}
+      >
+        {imagePath && <img src={imagePath} className={styles.memoryImage} />}
+        <div className={styles.memoryDetails}>
+          <span className={styles.memoryDate}>{formatDate(utcTime)}</span>
+          <br></br>
+          <span className={styles.memoryLocation}>{gps}</span>
+        </div>
+      </div>
+      {isPopupVisible && (
+        <Popup data={popupData} onClose={() => setIsPopupVisible(false)} />
+      )}
+    </div>
   );
 };
 

@@ -102,27 +102,31 @@ const Timeline: React.FC<Props> = ({ txtFiles, images }) => {
   }
 
   return (
-    <div className={styles.timeline}>
-      {Object.entries(filesByMonth).map(([month, files]) => (
-        <div key={month} className="monthSection">
-          <h3>{month}</h3>
-          {files.map((file) => {
-            const baseName =
-              file.path.split("\\").pop()?.replace(".txt", "") ?? "";
-            const image = imageMap.get(baseName);
+    <div className={styles.timelineWrapper}>
+      <div id="timeline" className={styles.timeline}>
+        {Object.entries(filesByMonth).map(([month, files]) => (
+          <div key={month}>
+            <h3>{month}</h3>
+            <div className={styles.monthSection}>
+              {files.map((file) => {
+                const baseName =
+                  file.path.split("\\").pop()?.replace(".txt", "") ?? "";
+                const image = imageMap.get(baseName);
 
-            return (
-              <Entry
-                key={file.path}
-                file={file}
-                image={image}
-                onParsedDate={handleParsedDate}
-                isInitialParse={false}
-              />
-            );
-          })}
-        </div>
-      ))}
+                return (
+                  <Entry
+                    key={file.path}
+                    file={file}
+                    image={image}
+                    onParsedDate={handleParsedDate}
+                    isInitialParse={false}
+                  />
+                );
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
       <TimelineScrollbar parsedEntries={parsedEntries} />
     </div>
   );

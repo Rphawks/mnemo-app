@@ -12,7 +12,6 @@ const TimelineScrollbar = ({
   parsedEntries: ParsedEntry[];
 }) => {
   const filesByMonth = parsedEntries.reduce((acc, entry) => {
-    // console.log(entry);
     if (!entry.utctime) return acc;
 
     const date = new Date(entry.utctime);
@@ -30,21 +29,50 @@ const TimelineScrollbar = ({
   }, {} as Record<string, string[]>);
 
   const scrollToFile = (filePath: string) => {
-    const element = document.querySelector(`[data-file-path="${filePath}"]`);
-    element?.scrollIntoView({ behavior: "smooth", block: "start" });
+    const normalizedPath = filePath.split(/[/\\]/).pop();
+    const element = document.querySelector(
+      `[data-file-path="${normalizedPath}"]`
+    );
+
+    if (element) {
+      const elementTop = element.getBoundingClientRect().top;
+      const timeline = document.querySelector("#timeline");
+
+      if (timeline) {
+        const timelineTop = timeline.getBoundingClientRect().top;
+        const y = elementTop - timelineTop + timeline.scrollTop - 60;
+
+        timeline.scrollTo({
+          top: y,
+          behavior: "smooth",
+        });
+      }
+    }
   };
+
+  const totalFiles = Object.values(filesByMonth).reduce(
+    (sum, files) => sum + files.length,
+    0
+  );
+  let cumulativeFiles = 0;
 
   return (
     <div className={styles.scrollbar}>
-      {Object.entries(filesByMonth).map(([month, files]) => (
-        <div
-          key={month}
-          className={styles.monthMarker}
-          onClick={() => scrollToFile(files[0])}
-        >
-          {month}
-        </div>
-      ))}
+      {Object.entries(filesByMonth).map(([month, files]) => {
+        const position = (cumulativeFiles / totalFiles) * 100;
+        cumulativeFiles += files.length;
+
+        return (
+          <button
+            key={month}
+            className={styles.monthMarker}
+            style={{ top: `${position}%` }}
+            onClick={() => scrollToFile(files[0])}
+          >
+            {month}
+          </button>
+        );
+      })}
     </div>
   );
 };
