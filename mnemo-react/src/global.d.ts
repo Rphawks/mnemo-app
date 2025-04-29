@@ -9,5 +9,12 @@ declare global {
       }>;
       readFile: (filePath: string) => Promise<string>;
     };
+    api: {
+      checkResponseFile: (fileName: string) => Promise<string | null>;
+      askChatGPTWithImage: (
+        imagePath: string,
+        prompt: string
+      ) => Promise<string>;
+    };
   }
 }

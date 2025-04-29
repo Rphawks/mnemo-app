@@ -67,7 +67,7 @@ const Entry: React.FC<Props> = ({
 
   useEffect(() => {
     if (image) {
-      setImagePath(`my-protocol://${encodeURIComponent(image.path)}`);
+      setImagePath(`image-protocol://${encodeURIComponent(image.path)}`);
     } else {
       setImagePath(null);
     }
@@ -107,6 +107,8 @@ const Entry: React.FC<Props> = ({
     utcTime: string;
     gps: string | null;
     filePath: string;
+    temperature: number | null;
+    humidity: number | null;
   }
 
   const [isPopupVisible, setIsPopupVisible] = useState(false);
@@ -118,6 +120,8 @@ const Entry: React.FC<Props> = ({
       utcTime,
       gps,
       filePath: file.path,
+      temperature,
+      humidity,
     });
     setIsPopupVisible(true);
   };

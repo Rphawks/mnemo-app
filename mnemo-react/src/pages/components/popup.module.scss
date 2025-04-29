@@ -5,9 +5,9 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  width: 100vw;
+  height: 100vh;
+  // background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -16,42 +16,112 @@
 
 /* Content inside the popup */
 .popupContent {
-  background: white;
-  padding: 20px;
   border-radius: 8px;
-  width: 80%;
-  max-width: 600px;
+  width: 100%;
   position: relative;
+  padding-left: 5rem;
 }
 
 /* Close button style */
 .closeButton {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 1.75rem;
+  right: 1.35rem;
   padding: 5px 10px;
-  background-color: red;
-  color: white;
+  color: transparent;
   border: none;
-  border-radius: 50%;
   cursor: pointer;
+  font-size: 2rem;
+  background-color: transparent;
+}
+
+.closeButton:hover {
+  background-color: transparent;
+}
+
+.closeButton::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background: #6d326d;
+  transition: width 0.3s ease-out, left 0.3s ease-out, opacity 0.3s ease-out;
+  opacity: 0;
+  transform: translateY(-3px);
+}
+
+.closeButton:hover::after {
+  width: 90%;
+  left: 5%;
+  opacity: 1;
+  transform: translateY(-3px);
 }
 
 /* Image inside the popup */
 .popupImage {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
+  width: auto;
+  height: 65vh;
+  border-radius: 1rem;
+  border: 0.5rem solid #6d326d;
+  object-fit: cover;
+  display: block;
 }
 
-/* Popup details section */
 .popupDetails {
   margin-top: 10px;
+  color: #d08cd0;
+  padding-left: 0.5rem;
+  line-height: 0.6rem;
+}
+
+.popupDataTitle {
+  text-decoration: underline;
+  font-size: 16px;
+  padding-bottom: 0.25rem;
 }
 
 .popupDate,
 .popupLocation,
-.popupFilePath {
-  font-size: 14px;
-  margin-top: 5px;
+.popupFilePath,
+.popupTime {
+  font-size: 0.6rem;
+  line-height: 0.6rem;
+}
+
+.popupFlex {
+  display: flex;
+  width: 100%;
+  background: white;
+  height: 82vh;
+  padding: 20px;
+  margin-top: 14vh;
+  margin-bottom: 2vh;
+  justify-content: center;
+}
+
+.mnemoText {
+  color: #6d326d;
+  padding-left: 0.5rem;
+}
+
+.popupText {
+  color: #6d326d;
+  padding-right: 12rem;
+  padding-left: 2rem;
+}
+
+.popupDateLong {
+  font-size: 1.75rem;
+}
+
+.popupLocationLong {
+  font-size: 1.75rem;
+  padding-top: 2rem;
+}
+
+.GPTResponse {
+  padding-top: 2rem;
+  font-size: 2.25rem;
 }

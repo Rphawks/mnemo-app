@@ -15,3 +15,10 @@ contextBridge.exposeInMainWorld("electron", {
   selectDirectory: () => ipcRenderer.invoke("select-directory"),
   readFile: (filePath) => ipcRenderer.invoke("read-file", filePath),
 });
+
+contextBridge.exposeInMainWorld("api", {
+  checkResponseFile: (fileName) =>
+    ipcRenderer.invoke("check-response-file", fileName),
+  askChatGPTWithImage: (imagePath, prompt) =>
+    ipcRenderer.invoke("ask-chatgpt-with-image", imagePath, prompt),
+});
